@@ -2,71 +2,109 @@ import 'package:flutter/material.dart';
 
 void main(){
   runApp(MyApp());
+
 }
 
-class MyApp extends StatelessWidget{
+class MyApp extends StatelessWidget {
+  MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
-  return MaterialApp(
-      home: HomeScreen(),
-      );
-}
-  }
-
-  class HomeScreen extends StatefulWidget{
-  HomeScreen({Key? key}) : super(key: key);
-
-  @override
-    State<HomeScreen> createState() => _HomeScreenState();
-  }
-  class _HomeScreenState extends State<HomeScreen>{
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-  TextStyle(fontSize:30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions =<Widget>[
-    Text(
-      'Home Page',
-      style: optionStyle,
-    ),
-    Text(
-      'Course Page',
-      style: optionStyle,
-    ),
-    Text(
-      'Email Page',
-      style: optionStyle,
-    ),
-  ];
-  void _onItemTapped(int index){
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-  @override
-    Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('GeeksForGeeks'),
-        backgroundColor: Colors.green,
-      ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-         BottomNavigationBarItem(icon: Icon(Icons.home),
-         label: 'home'),
-          BottomNavigationBarItem(icon: Icon(Icons.bookmark),
-          label: 'Courses'),
-          BottomNavigationBarItem(icon: Icon(Icons.email),
-              label: 'Mail'),
-
-        ],
-        currentIndex: _selectedIndex,
-          selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
-      ),
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'appTitle',
+      home: MyHomePage(title: "appTitle"),
     );
+  }
+
+}
+class MyHomePage extends StatelessWidget{
+  final String  title;
+
+ const MyHomePage({Key? key , required this.title}): super(key: key);
+    @override
+  Widget build(BuildContext context){
+      return Scaffold(
+      appBar: AppBar(
+      title: Text("title"),
+    backgroundColor: Colors.green,
+      ),
+        body: const Center(
+          child: Text(
+            "A drawer is an invisible side screen",
+            style: TextStyle(fontSize: 20.0),
+          ),
+        ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.all(0),
+            children: [
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.green
+                ),
+                child: UserAccountsDrawerHeader(
+                  decoration: BoxDecoration(color: Colors.green),
+                  accountName: Text(
+                    "Nobel dey babu",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  accountEmail: Text("nobeldeybabu@gmail.com"),
+                  currentAccountPictureSize: Size.square(50),
+                  currentAccountPicture: CircleAvatar(
+                    backgroundColor: Color.fromARGB(255, 165, 255, 137),
+                    child: Text(
+                      "A",
+                      style: TextStyle(fontSize: 30.0, color: Colors.blue),
+
+                    ),
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.person),
+                title: Text("My Profile"),
+                onTap: (){
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.book),
+                title: Text('My Course'),
+                onTap: (){
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.workspace_premium),
+                title: Text("Go premium"),
+                onTap: (){
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.video_label),
+                title: Text("Saved Videos"),
+                onTap: (){
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.edit),
+                title: Text("Edit Profile"),
+                onTap: (){
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.logout),
+                title: Text("Logout"),
+                onTap: (){
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          ),
+        ),
+      );
   }
   }
